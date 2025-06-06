@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>EduTools Importer</title>
+        <style>
+            body,
+            html {
+                background-color: black;
+                color: white;
+                height: 100%;
+            }
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+    </head>
+    <body>
+        Completing migration
+        <script>
+            const b64data = new URLSearchParams(location.search).get("data");
+            const data = JSON.parse(atob(b64data));
+
+            if (data.cookies) {
+                data.cookies.split(";").forEach((cookie) => {
+                    console.log("Cookie:", cookie);
+                    const [name, value] = cookie.split("=");
+                    document.cookie = `${name}=${value}`;
+                });
+            }
+
+            if (data.localstorage) {
+                data.localstorage.forEach((value, key) => {
+                    console.log("LocalStorage:", key, value);
+                    localStorage.setItem(key, value);
+                });
+            }
+
+            if (data.sessionstorage) {
+                data.sessionstorage.forEach((value, key) => {
+                    console.log("SessionStorage:", key, value);
+                    sessionStorage.setItem(key, value);
+                });
+            }
+            localStorage.setItem(
+                "preferences",
+                '{"experimentalFeatures":true,"open":"tab","theme":"shadcn-zinc-dark","panic":{"enabled":false,"key":"`","url":"https://classroom.google.com","disableExperimentalMode":true},"cloak":{"mode":"off","name":"Home","icon":"https://ssl.gstatic.com/classroom/favicon.png"},"analytics":true,"history":true}',
+            );
+            setTimeout(() => {
+                location = "/";
+            });
+        </script>
+    </body>
+</html>
