@@ -33,14 +33,14 @@
             }
 
             if (data.localstorage) {
-                data.localstorage.forEach((value, key) => {
+                Object.entries(data.localstorage).forEach(([key, value]) => {
                     console.log("LocalStorage:", key, value);
                     localStorage.setItem(key, value);
                 });
             }
 
             if (data.sessionstorage) {
-                data.sessionstorage.forEach((value, key) => {
+                Object.entries(data.sessionstorage).forEach(([key, value]) => {
                     console.log("SessionStorage:", key, value);
                     sessionStorage.setItem(key, value);
                 });
